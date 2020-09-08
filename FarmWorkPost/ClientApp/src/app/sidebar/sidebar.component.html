@@ -1,33 +1,44 @@
-<div class="container" style="height: 100%;">
-    <div class="card" style="height: 100%;">
+<div class="container h-100">
+    <div class="card">
         <article class="card-group-item">
             <header class="card-header">
-                <h6 class="title">Brands </h6>
+                <h6 class="title">Location </h6>
             </header>
             <div class="filter-content">
                 <div class="card-body">
                     <form>
-                        <label class="form-check">
+                        <label class="form-check" *ngFor="let city of cities ">
                             <input class="form-check-input" type="checkbox" value="">
                             <span class="form-check-label">
-                                Mersedes Benz
+                                {{ city.name}}
                             </span>
                         </label>
-                        <!-- form-check.// -->
-                        <label class="form-check">
+
+
+                    </form>
+
+                </div>
+                <!-- card-body.// -->
+            </div>
+        </article>
+    </div>
+
+    <div class="card ">
+        <article class="card-group-item">
+            <header class="card-header">
+                <h6 class="title">Types </h6>
+            </header>
+            <div class="filter-content">
+                <div class="card-body">
+                    <form>
+                        <label class="form-check" *ngFor="let city of cities ">
                             <input class="form-check-input" type="checkbox" value="">
                             <span class="form-check-label">
-                                Nissan Altima
+                                {{ city.name}}
                             </span>
                         </label>
-                        <!-- form-check.// -->
-                        <label class="form-check">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <span class="form-check-label">
-                                Another Brand
-                            </span>
-                        </label>
-                        <!-- form-check.// -->
+
+
                     </form>
 
                 </div>
