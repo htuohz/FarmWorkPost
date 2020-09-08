@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FarmWorkPost.Entity;
+using FarmWorkPost.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 using Microsoft.Extensions.Logging;
+
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,9 +18,9 @@ namespace FarmWorkPost.Controllers
     {
 
         private readonly ILogger _logger;
-        private readonly JobsContext _dbContext;
+        private readonly DBContext _dbContext;
 
-        public JobController(ILoggerFactory loggerFactory, JobsContext dbContext)
+        public JobController(ILoggerFactory loggerFactory, DBContext dbContext)
         {
             this._logger = loggerFactory.CreateLogger(this.GetType().Name);
             this._dbContext = dbContext;
@@ -26,8 +28,8 @@ namespace FarmWorkPost.Controllers
 
         // GET: api/values
         [HttpGet]
-        [Route("GetJobs")]
-        public async Task<ActionResult<object>> Get(int from, int limit)
+        [Route("GetAllJobs")]
+        public async Task<ActionResult<object>> GetAllJobs(int from, int limit)
         {
             try
             {
@@ -66,7 +68,7 @@ namespace FarmWorkPost.Controllers
         {
             try
             {
-                Entity.Job newJob = new Entity.Job()
+                Entities.Job newJob = new Entities.Job()
                 {
                     Company=model.Company,
                     Title=model.Title,

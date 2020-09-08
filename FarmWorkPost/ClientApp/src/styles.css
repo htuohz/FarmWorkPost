@@ -20,3 +20,24 @@ code {
 .bg-warning {
     background-color: #ffe81f;
 }
+
+.fb {
+    background-color: #3B5998;
+    color: white;
+}
+
+.twitter {
+    background-color: #55ACEE;
+    color: white;
+}
+
+.google {
+    background-color: #dd4b39;
+    color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .sidebar {
+        visibility: hidden;
+    }
+}

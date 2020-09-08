@@ -19,11 +19,12 @@ namespace FarmWorkPost.Models
 
 
         public int UserId { get; set; }
+
         public Job()
         {
         }
 
-        public Job(Entity.Job job)
+        public Job(Entities.Job job)
         {
             this.Title = job.Title;
             this.Location = job.Location;

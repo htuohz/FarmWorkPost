@@ -2,13 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FarmWorkPost.Entity
+namespace FarmWorkPost.Entities
 {
     [Table("Jobs")]
     public class Job
     {
-        
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobId { get; set; }
@@ -30,7 +28,6 @@ namespace FarmWorkPost.Entity
         [Required]
         [ForeignKey("UserId")]
         public User User { get; set; }
-
 
     }
 }
