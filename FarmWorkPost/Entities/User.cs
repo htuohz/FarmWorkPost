@@ -9,17 +9,15 @@ namespace FarmWorkPost.Entities
     public class User
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
-        [Required]
+        public Guid UserId { get; set; }
+
         public string FirstName { get; set; }
-        [Required]
         public string LastName { get; set; }
         [Required]
-        public string email { get; set; }
-        [Required]
-        public string password { get; set; }
+        public string Email { get; set; }
+        public string Telephone { get; set; }
+        
 
-        public List<Job> jobs {get;set;}
+        public List<Job> Jobs {get;set;}
     }
 }

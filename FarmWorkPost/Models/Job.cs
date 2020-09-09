@@ -1,4 +1,6 @@
 ﻿using System;
+using FarmWorkPost.Common;
+
 namespace FarmWorkPost.Models
 {
     public class Job
@@ -11,14 +13,14 @@ namespace FarmWorkPost.Models
 
         public string Description { get; set; }
 
-        public string Type { get; set; }
+        public JobType Type { get; set; }
 
         public string Company { get; set; }
 
         public float Salary { get; set; }
 
-
-        public int UserId { get; set; }
+        public DateTime CreationDate { get; set; }
+        public JobStatus Status { get; set; }
 
         public Job()
         {

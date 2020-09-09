@@ -11,12 +11,5 @@ namespace FarmWorkPost.Entities
 
         public DbSet<User> AppUsers { get; set; }
         public DbSet<Job> Jobs { get; set; }
-
-        //public DBContext(DbContextOptions options) : base(options)
-        //{
-        //}
-
-       
-
     }
 }

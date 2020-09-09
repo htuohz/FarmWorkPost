@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FarmWorkPost.Common;
 
 namespace FarmWorkPost.Entities
 {
+  
     [Table("Jobs")]
     public class Job
     {
@@ -19,15 +21,18 @@ namespace FarmWorkPost.Entities
 
         public string Description { get; set; }
 
-        public string Type { get; set; }
+        [Required]
+        public JobType Type { get; set; }
 
         public string Company { get; set; }
 
         public float Salary { get; set; }
 
+        public DateTime CreationDate { get; set; }
+        public JobStatus Status { get; set; }
+
         [Required]
         [ForeignKey("UserId")]
         public User User { get; set; }
-
     }
 }

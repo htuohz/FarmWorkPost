@@ -28,15 +28,17 @@ namespace FarmWorkPost.Controllers
 
         // GET: api/values
         [HttpGet]
-        [Route("GetAllJobs")]
-        public async Task<ActionResult<object>> GetAllJobs(int from, int limit)
+        [Route("GetJobsByPage")]
+        public async Task<ActionResult<List<Models.Job>>> GetAllJobs([FromQuery] int pageNumber, [FromQuery] int jobNumber)
         {
             try
             {
-                var jobs = this._dbContext.Jobs
+                var jobs = await this._dbContext.Jobs
+                    .Skip((pageNumber - 1) * jobNumber)
+                    .Take((pageNumber - 1) * jobNumber + jobNumber)
                     .AsNoTracking()
-                    .Take(limit)
-                    .ToList();
+                    .Select(job => new Models.Job(job))
+                    .ToListAsync();
 
                 if (jobs.Count > 0)
                 {
@@ -49,7 +51,7 @@ namespace FarmWorkPost.Controllers
             }
             catch (Exception ex)
             {
-                this._logger.LogError(ex, "GetAllOrders Failed");
+                this._logger.LogError(ex, "GetJobsByPage Failed");
                 return BadRequest();
             }
         }
@@ -63,17 +65,21 @@ namespace FarmWorkPost.Controllers
 
         // POST api/values
         [HttpPost]
-        [Route("PostJob")]
-        public async Task<ActionResult<object>> Post([FromBody] Models.Job model)
+        [Route("PostNewJob")]
+        public async Task<ActionResult<Models.Job>> Post([FromBody] Models.Job model)
         {
             try
             {
                 Entities.Job newJob = new Entities.Job()
                 {
-                    Company=model.Company,
-                    Title=model.Title,
+                    Title = model.Title,
+                    Location = model.Location,
                     Description = model.Description,
-                    Location = model.Location
+                    Type = model.Type,
+                    Company = model.Company,
+                    Salary = model.Salary,
+                    CreationDate = DateTime.Now,
+                    Status = model.Status,
                 };
 
                 await this._dbContext.Jobs.AddAsync(newJob);
@@ -83,7 +89,7 @@ namespace FarmWorkPost.Controllers
 
                 if (result > 0)
                 {
-                    return Ok();
+                    return Ok(new Models.Job(newJob));
                 }
                 else
                 {
@@ -94,7 +100,7 @@ namespace FarmWorkPost.Controllers
             }
             catch (Exception ex)
             {
-                this._logger.LogError(ex, "CreateOrder Failed");
+                this._logger.LogError(ex, "PostNewJob Failed");
                 return BadRequest();
             }
         }

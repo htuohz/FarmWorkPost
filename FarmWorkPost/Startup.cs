@@ -39,37 +39,9 @@ namespace FarmWorkPost
             .UseMySql(Configuration.GetConnectionString("DefaultConnection"), mySqlOptions => mySqlOptions
             .ServerVersion(new Version(8, 0, 19), ServerType.MySql)
             ));
-           
-
-            services.AddIdentity<Entities.User, IdentityRole>()
-                 .AddEntityFrameworkStores<DBContext>()
-                .AddUserManager<UserManager<Entities.User>>()
-                .AddSignInManager<SignInManager<Entities.User>>()
-                .AddDefaultTokenProviders();
 
 
             #region Authentication
-            var key = System.Text.Encoding.UTF8.GetBytes("0123456789123456".ToString());
-
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = false;
-                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
@@ -87,10 +59,7 @@ namespace FarmWorkPost
 
 
             services.AddAuthorization();
-      
-            #endregion
 
-            #region cors
             services.AddCors();
             #endregion
         }
@@ -140,3 +109,5 @@ namespace FarmWorkPost
         }
     }
 }
+
+ 
