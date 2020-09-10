@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { City } from "../models/model";
+import { City } from "../../models/model";
 
 @Component({
   selector: "app-sidebar",

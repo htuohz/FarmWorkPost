@@ -41,3 +41,7 @@ code {
         visibility: hidden;
     }
 }
+
+.card .card-footer {
+    background-color: #fff;
+}
