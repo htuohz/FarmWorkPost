@@ -66,7 +66,7 @@ namespace FarmWorkPost.Controllers
         // POST api/values
         [HttpPost]
         [Route("PostNewJob")]
-        public async Task<ActionResult<Models.Job>> Post([FromBody] Models.Job model)
+        public async Task<ActionResult<Models.Job>> Post(Models.Job model)
         {
             try
             {

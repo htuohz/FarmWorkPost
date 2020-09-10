@@ -4,7 +4,7 @@ export interface City {
 }
 
 export interface Job {
-    id: number;
+    jobId: number;
     title: string;
     location: string;
     description?: string;
