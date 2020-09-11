@@ -70,8 +70,8 @@ namespace FarmWorkPost.Controllers
         {
             try
             {
-                //var user = this.GetUser();
-                //if(user == null) return BadRequest(new { message = "You have not logged in, please login first." });
+                var user = this.GetUser();
+                if (user == null) return BadRequest(new { message = "You have not logged in, please login first." });
 
                 Entities.Job newJob = new Entities.Job()
                 {

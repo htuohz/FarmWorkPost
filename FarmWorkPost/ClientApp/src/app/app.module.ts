@@ -16,8 +16,8 @@ import { SigninComponent } from "./components/signin/signin.component";
 import { PostjobComponent } from "./components/postjob/postjob.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- 
 import { ToastrModule } from 'ngx-toastr';
+import { TokenInterceptor } from '../app/auth/token.interceptor'
 
 import {
   SocialLoginModule,
@@ -53,6 +53,12 @@ import {
   ],
   providers: [
     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+
+    {
       provide: "SocialAuthServiceConfig",
       useValue: {
         autoLogin: true,
@@ -70,6 +76,7 @@ import {
         ],
       } as SocialAuthServiceConfig,
     },
+
   ],
 
   bootstrap: [AppComponent],
