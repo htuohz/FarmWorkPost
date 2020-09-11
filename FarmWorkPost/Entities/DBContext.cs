@@ -25,8 +25,12 @@ namespace FarmWorkPost.Entities
                .Property(j => j.Status)
                .HasConversion(
                    s => s.ToString(),
-                   s => (JobStatus)Enum.Parse(typeof(JobType), s));
+                   s => (JobStatus)Enum.Parse(typeof(JobStatus), s));
 
+            //Set Default value for jobstatus
+            modelBuilder.Entity<Job>()
+                .Property(j => j.Status)
+                .HasDefaultValue(JobStatus.Valid);
         }
 
         public DbSet<User> AppUsers { get; set; }

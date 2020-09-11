@@ -21,14 +21,17 @@ namespace FarmWorkPost.Entities
 
         public string Description { get; set; }
 
-        [Required]
+        
         public JobType Type { get; set; }
 
         public string Company { get; set; }
 
         public float Salary { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreationDate { get; set; }
+
         public JobStatus Status { get; set; }
 
         [Required]

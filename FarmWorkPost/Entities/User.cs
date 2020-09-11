@@ -19,5 +19,6 @@ namespace FarmWorkPost.Entities
         
 
         public List<Job> Jobs {get;set;}
+        public string UserName { get; internal set; }
     }
 }

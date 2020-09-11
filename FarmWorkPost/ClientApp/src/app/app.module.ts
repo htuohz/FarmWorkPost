@@ -1,19 +1,30 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
+import { ReactiveFormsModule } from "@angular/forms";
+import { routes } from "./app.routes";
 
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
-import { HomeComponent } from './components/home/home.component';
-import { CounterComponent } from './components/counter/counter.component';
-import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { PostjobComponent } from './components/postjob/postjob.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AppComponent } from "./app.component";
+import { NavMenuComponent } from "./components/nav-menu/nav-menu.component";
+import { HomeComponent } from "./components/home/home.component";
+import { CounterComponent } from "./components/counter/counter.component";
+import { FetchDataComponent } from "./components/fetch-data/fetch-data.component";
+import { FooterComponent } from "./components/footer/footer.component";
+import { SigninComponent } from "./components/signin/signin.component";
+import { PostjobComponent } from "./components/postjob/postjob.component";
+import { SidebarComponent } from "./components/sidebar/sidebar.component";
+
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from "angularx-social-login";
+
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from "angularx-social-login";
 
 @NgModule({
   declarations: [
@@ -25,21 +36,37 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     FooterComponent,
     SigninComponent,
     PostjobComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'home', component: HomeComponent},
-      { path: 'signin', component: SigninComponent },
-      { path: 'post-jobs', component: PostjobComponent },
-    ])
+    SocialLoginModule,
+    RouterModule.forRoot(routes),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              "624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com"
+            ),
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider("298510618024928"),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
+  ],
+
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -12,3 +12,16 @@ export interface Job {
     company?: string;
     salary?: number;
 }
+
+export interface AppConfig  {
+    baseUrl: string,
+    jobNumber: number
+}
+
+export interface AppUser {
+    userId?: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    Telephone?: string,
+}

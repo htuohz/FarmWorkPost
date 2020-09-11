@@ -14,13 +14,13 @@ using Microsoft.EntityFrameworkCore;
 namespace FarmWorkPost.Controllers
 {
     [Route("api/[controller]")]
-    public class JobController : Controller
+    public class JobController : BasicController
     {
 
         private readonly ILogger _logger;
         private readonly DBContext _dbContext;
 
-        public JobController(ILoggerFactory loggerFactory, DBContext dbContext)
+        public JobController(ILoggerFactory loggerFactory, DBContext dbContext): base(dbContext)
         {
             this._logger = loggerFactory.CreateLogger(this.GetType().Name);
             this._dbContext = dbContext;
@@ -66,10 +66,13 @@ namespace FarmWorkPost.Controllers
         // POST api/values
         [HttpPost]
         [Route("PostNewJob")]
-        public async Task<ActionResult<Models.Job>> Post(Models.Job model)
+        public async Task<ActionResult<Models.Job>> PostNewJob([FromBody]Models.Job model)
         {
             try
             {
+                //var user = this.GetUser();
+                //if(user == null) return BadRequest(new { message = "You have not logged in, please login first." });
+
                 Entities.Job newJob = new Entities.Job()
                 {
                     Title = model.Title,
@@ -79,12 +82,11 @@ namespace FarmWorkPost.Controllers
                     Company = model.Company,
                     Salary = model.Salary,
                     CreationDate = DateTime.Now,
-                    Status = model.Status,
+                    //Status = model.Status,
                 };
 
                 await this._dbContext.Jobs.AddAsync(newJob);
-                await this._dbContext.SaveChangesAsync();
-
+               
                 int result = await this._dbContext.SaveChangesAsync();
 
                 if (result > 0)
@@ -112,9 +114,17 @@ namespace FarmWorkPost.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [Route("DeleteJobById")]
+        public void DeleteJobById([FromQuery]int id)
         {
         }
+
+        [HttpDelete]
+        [Route("GetJobsByUserId")]
+        public void GetJobsByUserId([FromQuery]int userId)
+        {
+        }
+
     }
 }
