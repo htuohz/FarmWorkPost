@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FarmWorkPost.Migrations
 {
-    public partial class initial : Migration
+    public partial class changeuseridforusertable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +12,12 @@ namespace FarmWorkPost.Migrations
                 name: "AppUsers",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: false),
-                    Telephone = table.Column<string>(nullable: true)
+                    Telephone = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -32,12 +33,12 @@ namespace FarmWorkPost.Migrations
                     Title = table.Column<string>(nullable: false),
                     Location = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false),
+                    Type = table.Column<string>(nullable: false),
                     Company = table.Column<string>(nullable: true),
                     Salary = table.Column<float>(nullable: false),
                     CreationDate = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<int>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false)
+                    Status = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,7 +48,7 @@ namespace FarmWorkPost.Migrations
                         column: x => x.UserId,
                         principalTable: "AppUsers",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

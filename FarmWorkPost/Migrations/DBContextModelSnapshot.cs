@@ -51,9 +51,8 @@ namespace FarmWorkPost.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<Guid?>("UserId")
-                        .IsRequired()
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("JobId");
 
@@ -64,9 +63,8 @@ namespace FarmWorkPost.Migrations
 
             modelBuilder.Entity("FarmWorkPost.Entities.User", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -93,9 +91,7 @@ namespace FarmWorkPost.Migrations
                 {
                     b.HasOne("FarmWorkPost.Entities.User", "User")
                         .WithMany("Jobs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

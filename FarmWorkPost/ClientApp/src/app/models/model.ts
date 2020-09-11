@@ -19,9 +19,9 @@ export interface AppConfig  {
 }
 
 export interface AppUser {
-    userId?: string,
-    firstName: string,
-    lastName: string,
-    email: string,
+    UserId?: string,
+    FirstName: string,
+    LastName: string,
+    Email: string,
     Telephone?: string,
 }

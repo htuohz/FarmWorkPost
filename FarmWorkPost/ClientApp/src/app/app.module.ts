@@ -55,12 +55,12 @@ import {
     {
       provide: "SocialAuthServiceConfig",
       useValue: {
-        autoLogin: false,
+        autoLogin: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              "624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com"
+              "481383700745-24dthcmo6tupump68olpuc89kgpk43ri.apps.googleusercontent.com"
             ),
           },
           {

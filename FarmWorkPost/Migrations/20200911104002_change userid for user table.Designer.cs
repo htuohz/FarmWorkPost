@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmWorkPost.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20200909035325_initial")]
-    partial class initial
+    [Migration("20200911104002_change userid for user table")]
+    partial class changeuseridforusertable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,19 +41,20 @@ namespace FarmWorkPost.Migrations
                     b.Property<float>("Salary")
                         .HasColumnType("float");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UserId")
+                    b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("JobId");
 
@@ -64,9 +65,8 @@ namespace FarmWorkPost.Migrations
 
             modelBuilder.Entity("FarmWorkPost.Entities.User", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -81,6 +81,9 @@ namespace FarmWorkPost.Migrations
                     b.Property<string>("Telephone")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("UserName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.HasKey("UserId");
 
                     b.ToTable("AppUsers");
@@ -90,9 +93,7 @@ namespace FarmWorkPost.Migrations
                 {
                     b.HasOne("FarmWorkPost.Entities.User", "User")
                         .WithMany("Jobs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

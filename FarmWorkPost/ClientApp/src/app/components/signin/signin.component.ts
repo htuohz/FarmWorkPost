@@ -1,32 +1,40 @@
-import { Component, OnInit} from '@angular/core';
-import { GoogleLoginProvider, FacebookLoginProvider, SocialAuthService } from 'angularx-social-login';
-import { ToastrService } from 'ngx-toastr';
-import { UserService } from 'src/app/services/user/user.service';
-import { AppUser } from 'src/app/models/model';
+import { Component, OnInit } from "@angular/core";
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from "angularx-social-login";
+import { ToastrService } from "ngx-toastr";
+import { UserService } from "src/app/services/user/user.service";
+import { AppUser } from "src/app/models/model";
+import { Router } from "@angular/router";
+
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  selector: "app-signin",
+  templateUrl: "./signin.component.html",
+  styleUrls: ["./signin.component.css"],
 })
 export class SigninComponent implements OnInit {
-  private currentUser: AppUser ;
+  private currentUser: SocialUser;
 
   constructor(
     private toasterService: ToastrService,
     private authService: SocialAuthService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Login with google
    */
   signInWithGoogle(): void {
+    console.log("login wiht google");
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.registerSocialUser();
-
   }
 
   /**
@@ -35,38 +43,42 @@ export class SigninComponent implements OnInit {
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.registerSocialUser();
-
   }
 
   /**
-   * 
+   *
    */
   /**
    * Get loggined social media user
    */
   registerSocialUser() {
     this.authService.authState.subscribe(
-      res => {
+      (res) => {
         this.currentUser = res;
-        this.userService.registerNewUser(this.currentUser).subscribe(
-            res => {
-            //this.toasterService.success(`You have successfully login`);
-            localStorage.setItem('token', res.token);
+       
 
+        const args: AppUser = {
+          UserId: this.currentUser.id,
+          FirstName: this.currentUser.firstName,
+          LastName: this.currentUser.lastName,
+          Email: this.currentUser.email,
+        };
+        this.userService.registerSocialUser(args).subscribe(
+          (res) => {
+            this.toasterService.success(`You have successfully login`);
+            localStorage.setItem("token", res.token);
+            this.router.navigateByUrl('home');
           },
-          err => {
-           // this.toasterService.error(`${err.error.message}`)
+          (err) => {
+            this.toasterService.error(`${err.error.message}`)
             console.error("ERROR: GetCurrentUser", err);
-
           }
         );
       },
 
-      err => {
+      (err) => {
         console.log("ERROR: GetSocialUser Failed");
       }
     );
-
   }
-  
 }

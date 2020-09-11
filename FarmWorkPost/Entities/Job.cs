@@ -34,7 +34,7 @@ namespace FarmWorkPost.Entities
 
         public JobStatus Status { get; set; }
 
-        [Required]
+      
         [ForeignKey("UserId")]
         public User User { get; set; }
     }

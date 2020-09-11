@@ -29,7 +29,7 @@ namespace FarmWorkPost.Controllers
 
         [HttpPost]
         [Route("UserLogin")]
-        public async Task<IActionResult> UserLogin(Models.User model)
+        public async Task<IActionResult> UserLogin([FromBody]Models.User model)
         {
             try
             {
@@ -42,10 +42,12 @@ namespace FarmWorkPost.Controllers
                         {
                             Email = model.Email,
                             FirstName = model.FirstName,
-                            LastName = model.LastName
+                            LastName = model.LastName,
+                            UserId = model.UserId
+
                         };
 
-                        await this._dbContext.AppUsers.AddAsync(user);
+                        await this._dbContext.AppUsers.AddAsync(newUser);
                         var result = await this._dbContext.SaveChangesAsync();
              
                         //Generate JWT token
