@@ -15,6 +15,9 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { SigninComponent } from "./components/signin/signin.component";
 import { PostjobComponent } from "./components/postjob/postjob.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
+import { ToastrModule } from 'ngx-toastr';
 
 import {
   SocialLoginModule,
@@ -44,6 +47,8 @@ import {
     FormsModule,
     ReactiveFormsModule,
     SocialLoginModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot(),
     RouterModule.forRoot(routes),
   ],
   providers: [
